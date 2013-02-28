@@ -23,45 +23,37 @@ public class JsonRpcTarget {
     private final Gson gsonreq = new GsonBuilder().registerTypeAdapter(
             JsonRpcRequest.class, new RequestDeserializer()).create();
 
-    private final HashMap<String, Method> methodslist = new HashMap<String, Method>();
+    private final HashMap<String, Method> methods = new HashMap<String, Method>();
 
     public JsonRpcTarget(Class<?> c) {
-        Method methods[] = c.getDeclaredMethods();
-        for (Method method : methods) {
+        for (Method method : c.getDeclaredMethods()) {
             int methodmodifiers = method.getModifiers();
             if (!Modifier.isPublic(methodmodifiers))
                 continue;
 
-            String methodsig = method.getName();
+            String methodName = method.getName();
 
-            if (methodslist.containsKey(methodsig)) {
-                throw new DuplicateMethodName("Overloading is not supported: "
-                        + methodsig);
+            if (methods.containsKey(methodName)) {
+                throw new DuplicateMethodName(
+                        "Method overloading is not supported: " + methodName);
             }
 
-            methodslist.put(methodsig, method);
+            methods.put(methodName, method);
         }
 
         // enable calling inner class methods if declared at a super class or
         // interface
         if (c.isAnonymousClass() || c.isMemberClass() || c.isLocalClass()) {
-            Class<?> p = c;
-            // TODO: check parameters and modifires (public)
-            while ((p = p.getSuperclass()) != null) {
-                methods = p.getMethods();
-                for (int i = 0; i < methods.length; i++) {
-                    if (methodslist.containsKey(methods[i].getName())) {
-                        methodslist.put(methods[i].getName(), methods[i]);
-                    }
-                }
-            }
+            // for (Method method : c.getMethods()) {
+            // if (methods.containsKey(method.getName())) {
+            // methods.put(method.getName(), method);
+            // }
+            // }
 
-            Class<?>[] ifaces = c.getInterfaces();
-            for (Class<?> iface : ifaces) {
-                methods = iface.getMethods();
-                for (int i = 0; i < methods.length; i++) {
-                    if (methodslist.containsKey(methods[i].getName())) {
-                        methodslist.put(methods[i].getName(), methods[i]);
+            for (Class<?> iface : c.getInterfaces()) {
+                for (Method method : iface.getMethods()) {
+                    if (methods.containsKey(method.getName())) {
+                        methods.put(method.getName(), method);
                     }
                 }
             }
@@ -78,7 +70,7 @@ public class JsonRpcTarget {
     }
 
     public Method getMethod(String method) {
-        return methodslist.get(method);
+        return methods.get(method);
     }
 
     private class RequestDeserializer implements
@@ -105,7 +97,7 @@ public class JsonRpcTarget {
                 throw new JsonRpcException(id, JsonRpcError.INVALID_REQUEST);
             }
 
-            Method javamethod = methodslist.get(method);
+            Method javamethod = methods.get(method);
             if (javamethod == null) {
                 throw new JsonRpcException(id, JsonRpcError.METHOD_NOT_FOUND);
             }
