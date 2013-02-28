@@ -6,12 +6,13 @@ JSONRPC for Java
 #### Usage
 
 ```java
-    // create once
-    JsonRpcServer server = new JsonRpcServer();
-    
-    // jsonreq can be String, InputStream or Reader
-    // service is the Object that json request is executed against
-    String jsonres = server.serve(service, jsonreq).toJson();
+// create once
+JsonRpcServer server = new JsonRpcServer();
+
+// jsonreq can be String, InputStream or Reader
+// service is the Object that json request is executed against
+String jsonres = server.serve(service, jsonreq).toJson();
+
 ```
 
-See [TestService](src/main/java/me/shakiba/jsonrpc/server/TestService) for example.    
+See [TestService](src/test/java/me/shakiba/jsonrpc/server/TestService) for example.    
