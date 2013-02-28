@@ -1,0 +1,32 @@
+- '{"id":1,"method":"echo","params":[true]}'
+- '{"id":"1","result":true}'
+
+- '{"id":2,"method":"echo","params":["string"]}'
+- '{"id":"2","result":"string"}'
+
+- '{"id":3,"method":"echo","params":[null]}'
+- '{"id":"3","result":null}'
+
+- '{"id":4,"method":"echo","params":[["a", "b", "c"]]}'
+- '{"id":"4","result":["a","b","c"]}'
+
+- '{"id":5,"method":"echo","params":[{"a":"A", "b":"B", "c":"C"}]}'
+- '{"id":"5","result":{"a":"A","b":"B","c":"C"}}'
+
+- '{"id":6,"params":[true]}'
+- '{"id":"6","error":{"code":-32600,"name":"INVALID_REQUEST","message":"Error!"}}'
+
+- '{"id":7,"method":"echo"}'
+- '{"id":"7","error":{"code":-32600,"name":"INVALID_REQUEST","message":"Error!"}}'
+
+- '{"id":8,"method":"echoo","params":[true]}'
+- '{"id":"8","error":{"code":-32601,"name":"METHOD_NOT_FOUND","message":"Error!"}}'
+
+- '{"id":9,"method":"paramError","params":[1]}'
+- '{"id":"9","error":{"code":-32602,"name":"INVALID_PARAMS","message":"Error!"}}'
+
+- '{"id":10,"method":"userError","params":["Errrr!","TEST_ERROR"]}'
+- '{"id":"10","error":{"code":-1,"name":"TEST_ERROR","message":"Errrr!"}}'
+
+- '{"id":11,"method":"internalError","params":["Errrr!"]}'
+- '{"id":"11","error":{"code":-32603,"name":"INTERNAL_ERROR","message":"Error!"}}'

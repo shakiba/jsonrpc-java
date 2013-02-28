@@ -1,15 +1,21 @@
 package me.shakiba.jsonrpc.server;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.yaml.snakeyaml.Yaml;
 
 public class JsonRpcServerTest {
     @Test
     public void simple() throws IOException {
-        String[] cases = TestService.cases;
+        Yaml yaml = new Yaml();
+        @SuppressWarnings("unchecked")
+        List<String> cases = (List<String>) yaml.load(JsonRpcServerTest.class
+                .getResourceAsStream("cases.yaml"));
+
         TestService service = new TestService();
         JsonRpcServer server = new JsonRpcServer() {
             @Override
@@ -23,9 +29,9 @@ public class JsonRpcServerTest {
                 return false;
             }
         };
-        for (int i = 0; i < cases.length; i += 2) {
-            String req = cases[i].replace("#", i / 2 + "");
-            String expectedRes = cases[i + 1].replace("#", i / 2 + "");
+        for (int i = 0; i < cases.size(); i += 2) {
+            String req = cases.get(i);
+            String expectedRes = cases.get(i + 1);
             String actualRes = server.serve(service, req).toJson();
             logger.debug(actualRes);
             Assert.assertEquals(actualRes, expectedRes);
