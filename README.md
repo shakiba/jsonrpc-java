@@ -15,4 +15,4 @@ String jsonres = server.serve(service, jsonreq).toJson();
 
 ```
 
-See [TestService](src/test/java/me/shakiba/jsonrpc/server/TestService) for example.    
+See [TestService](src/test/java/me/shakiba/jsonrpc/server/TestService.java) for example.    
