@@ -7,8 +7,8 @@
         <version>7</version>
     </parent>
 
-    <groupId>me.shakiba.jsonrpc-java</groupId>
-    <artifactId>jsonrpc-java</artifactId>
+    <groupId>me.shakiba.jsonrpc</groupId>
+    <artifactId>jsonrpc</artifactId>
     <version>0.0.3-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>JSONRPC for Java</name>
