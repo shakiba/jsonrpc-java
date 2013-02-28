@@ -8,8 +8,8 @@ public class TestService {
         return b;
     }
 
-    public int echoStr(int x, int y) {
-        return x + y;
+    public String echoStr(int x, int y) {
+        return x + y + "";
     }
 
     public Object echoObj(Object obj) {
@@ -37,7 +37,7 @@ public class TestService {
             "{\"id\":\"#\",\"result\":true}",
 
             "{\"id\":#,\"method\":\"echoStr\",\"params\":[1, 9]}",
-            "{\"id\":\"#\",\"result\":10}",
+            "{\"id\":\"#\",\"result\":\"10\"}",
 
             "{\"id\":#,\"method\":\"echoObj\",\"params\":[null]}",
             "{\"id\":\"#\",\"result\":null}",
