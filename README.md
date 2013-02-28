@@ -1,7 +1,7 @@
 jsonrpc-java
 ============
 
-JSONRPC for Java
+Minimal and easy to use JSONRPC implementation for Java.
 
 #### Usage
 
