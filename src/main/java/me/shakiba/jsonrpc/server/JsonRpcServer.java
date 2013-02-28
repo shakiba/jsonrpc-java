@@ -66,7 +66,6 @@ public class JsonRpcServer {
             } catch (InvocationTargetException e) {
                 Throwable cause = e.getCause();
                 if (onException(req, res, cause)) {
-                    logger.fatal(e, e);
                     res.setError(JsonRpcError.INTERNAL_ERROR);
                 }
             }

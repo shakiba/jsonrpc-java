@@ -4,18 +4,13 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import me.shakiba.jsonrpc.server.JsonRpcError;
-import me.shakiba.jsonrpc.server.JsonRpcRequest;
-import me.shakiba.jsonrpc.server.JsonRpcResponse;
-import me.shakiba.jsonrpc.server.JsonRpcServer;
-
 import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class JsonRpcTest {
+public class JsonRpcServerTest {
     @Test
-    public void test() throws IOException {
+    public void simple() throws IOException {
         JsonRpcServer server = new JsonRpcServer() {
             @Override
             protected boolean onException(JsonRpcRequest req,
@@ -35,6 +30,26 @@ public class JsonRpcTest {
             logger.debug(actualRes);
             Assert.assertEquals(actualRes, expectedRes);
         }
+    }
+
+    @Test
+    public static void innerclass() throws IOException {
+
+        class InnerClass extends ParentClass {
+            public boolean echo(boolean x) {
+                return x;
+            }
+        }
+        JsonRpcServer server = new JsonRpcServer();
+        String req = "{\"method\":\"echo\",\"params\":[true],\"id\":0}";
+        String expected = "{\"id\":\"0\",\"result\":true}";
+        String actual = server.serve(new InnerClass(), req).toJson();
+        logger.debug(actual);
+        Assert.assertEquals(actual, expected);
+    }
+
+    public abstract static class ParentClass {
+        public abstract boolean echo(boolean x);
     }
 
     public boolean echoBool(boolean x) {
@@ -115,5 +130,5 @@ public class JsonRpcTest {
 
     };
 
-    private static Logger logger = Logger.getLogger(JsonRpcTest.class);
+    private static Logger logger = Logger.getLogger(JsonRpcServerTest.class);
 }
