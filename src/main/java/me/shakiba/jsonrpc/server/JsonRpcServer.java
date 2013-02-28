@@ -8,7 +8,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.gson.JsonParseException;
 
@@ -59,7 +60,7 @@ public class JsonRpcServer {
                     try {
                         res.setSync(((JsonRpcSyncable) object).sync());
                     } catch (Throwable e) {
-                        logger.warn(e, e);
+                        logger.warn(e + "", e);
                     }
                 }
 
@@ -77,7 +78,7 @@ public class JsonRpcServer {
             res.setError(JsonRpcError.PARSE_ERROR);
 
         } catch (Exception e) {
-            logger.fatal(e, e);
+            logger.error(e + "", e);
             res.setError(JsonRpcError.INTERNAL_ERROR);
         }
 
@@ -104,5 +105,5 @@ public class JsonRpcServer {
         return server;
     }
 
-    private static Logger logger = Logger.getLogger(JsonRpcServer.class);
+    private static Logger logger = LoggerFactory.getLogger(JsonRpcServer.class);
 }

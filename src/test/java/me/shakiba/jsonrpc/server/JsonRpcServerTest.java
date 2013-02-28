@@ -3,7 +3,8 @@ package me.shakiba.jsonrpc.server;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.yaml.snakeyaml.Yaml;
@@ -59,5 +60,6 @@ public class JsonRpcServerTest {
         boolean echo(boolean x);
     }
 
-    private static Logger logger = Logger.getLogger(JsonRpcServerTest.class);
+    private static Logger logger = LoggerFactory
+            .getLogger(JsonRpcServerTest.class);
 }

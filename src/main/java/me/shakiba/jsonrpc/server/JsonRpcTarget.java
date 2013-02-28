@@ -6,8 +6,6 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 
-import org.apache.log4j.Logger;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -134,8 +132,4 @@ public class JsonRpcTarget {
         }
 
     }
-
-    @SuppressWarnings("unused")
-    private static Logger logger = Logger.getLogger(JsonRpcTarget.class);
-
 }
