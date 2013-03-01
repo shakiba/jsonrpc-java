@@ -9,7 +9,7 @@
 
     <groupId>me.shakiba.jsonrpc</groupId>
     <artifactId>jsonrpc</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>JSONRPC for Java</name>
     <description>Minimal and easy to use JSONRPC implementation for Java.</description>
