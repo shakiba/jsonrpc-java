@@ -20,7 +20,7 @@ Please see [TestService](src/test/java/me/shakiba/jsonrpc/server/TestService.jav
     
 #### Maven
 
-Simply use Maven to add it to your project.
+Simply add it to your Maven project dependencies.
 
 ```xml
 <dependency>
