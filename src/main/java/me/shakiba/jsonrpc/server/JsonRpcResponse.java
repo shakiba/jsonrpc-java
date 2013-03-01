@@ -57,6 +57,10 @@ public class JsonRpcResponse {
         return gsonres.toJson(this);
     }
 
+    public void toJson(Appendable x) {
+        gsonres.toJson(this, x);
+    }
+
     private static Gson gsonres = new GsonBuilder()
             .serializeNulls()
             .registerTypeAdapter(JsonRpcResponse.class,
